@@ -5,8 +5,8 @@ from requests import get
 
 
 st.set_page_config(
-    page_title="Currency Convert",
-    page_icon="💰️",
+    page_title="AI Test",
+    page_icon="💰",
 )
 
 
@@ -14,28 +14,16 @@ st.set_page_config(
 #Write text to the screen with HTML markup
 title = '<p style="font-family:Courier; color:Blue; font-size: 30px;">CS399 AI Example - Find Outliers</p>'
 st.markdown(title, unsafe_allow_html=True)
-st.image("money.png", caption='Save your Money')
-title = '<p style="font-family:Courier; color:White; font-size: 20px;">Exchange Rates </p>'
+st.image("panda.png", caption='Similarity Checking Panda Running on AI')
+title = '<p style="font-family:Courier; color:White; font-size: 20px;">Based on Pre-trained vectors using Wikipedia 2017 </p>'
 st.markdown(title, unsafe_allow_html=True)
 
-st.write("Pulling data from: https://api.exchangerate-api.com/v4/latest/USD")
-url = 'https://api.exchangerate-api.com/v4/latest/USD'
-result=get(url, timeout=3).json()
-
-# Convert rates data to DataFrame
-df = pd.DataFrame(result.get("rates"), index=["Rates"])
-
-# Display multi-select for choosing columns
-selected_columns = st.multiselect(
-    'Select columns to display:',
-    list(df.columns),
-    default=['USD', 'EUR', 'GBP']  # Default columns to display
-)
-
-# Filter DataFrame based on selected columns
-filtered_df = df[selected_columns]
+st.write("This can take awhile, so please enjoy the zen garden while you wait.")
 
 # Display the filtered DataFrame
-st.title("All the Data")
-st.write(filtered_df)
-
+st.title("Outlier Removal")
+st.write("Enter at least 3 comma-seperated words")
+st.write("panda, cat, dog, car")
+st.title("Outliers Removed")
+st.write("Enter at least 3 comma-seperated words")
+st.write("panda, cat, dog")
