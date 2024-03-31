@@ -14,7 +14,7 @@ st.set_page_config(
 #Write text to the screen with HTML markup
 title = '<p style="font-family:Courier; color:Blue; font-size: 30px;">CS399 AI Example - Find Outliers</p>'
 st.markdown(title, unsafe_allow_html=True)
-st.image("panda.png", caption='Similarity Checking Panda Running on AI')
+#st.image("panda.png", caption='Similarity Checking Panda Running on AI')
 title = '<p style="font-family:Courier; color:White; font-size: 20px;">Based on Pre-trained vectors using Wikipedia 2017 </p>'
 st.markdown(title, unsafe_allow_html=True)
 
