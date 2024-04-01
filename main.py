@@ -6,6 +6,7 @@
 
 from wv import Model
 from scipy.stats import zscore
+import numpy as np
 
 def a_to_b_is_like_c_to(a: str, b: str, c: str)-> str:
     # Use a breakpoint in the code line below to debug your script.
@@ -50,19 +51,15 @@ if __name__ == '__main__':
 
             z_scores =zscore(scores)
             print("z_scores=", z_scores)
+            threshold = 2
 
-            diff=[]
-            for s in scores:
-                for s2 in scores:
-                    d=abs(s-s2)
-                diff.append(d)
-            print(diff)
-            print('most different word has score:', max(scores))
-            index = 0
-            for s in scores:
-                if s == max(scores):
-                    print(f'Outlier is: {words[index]}')
-                    break
-                index = index + 1
-            #figure out position in array and print word in that position
-        
+            outliers_indices = np.where(np.abs(z_scores) > threshold)[0]
+
+            # Print the indices of outliers
+            print("Indices of outliers:", outliers_indices)
+            print(type(outliers_indices))
+            # Print the values of outliers
+            for o in outliers_indices:
+                print("Values of outliers:", words[o])
+
+            
