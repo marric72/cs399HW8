@@ -25,7 +25,7 @@ def a_to_b_is_like_c_to(a: str, b: str, c: str)-> str:
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    #model = Model("models/short_model.txt")
-    model = Model("models/wiki-news-300d-1M.vec")
+    model = Model("models/glove_short.txt")
+    #model = Model("models/wiki-news-300d-1M.vec")
     print(a_to_b_is_like_c_to("Berlin", "Germany", "Paris"))
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
