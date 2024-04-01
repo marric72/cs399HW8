@@ -47,11 +47,19 @@ class Model(list):
         super().__init__()
         print(f"Loading model from {inp_file_name} ...")
         t0 = process_time()
+        num=0
+        length=0
         with open(inp_file_name, mode="r", encoding="utf8") as inp_file:
             for line in inp_file:
                 sa = line.split()
+                if len(sa) > length:
+                    length=len(sa)
+                    print(f"new vector length {length}")
+                num=num+1
                 self.append(Word(sa[0], [float(x) for x in sa[1:]]))
         print(f"Loaded in {process_time() - t0} secs")
+        print(f"Number of words: {num}")
+        
 
     def find_word(self, text: str) -> Word | None:
         for w in self:
@@ -74,4 +82,4 @@ class Model(list):
 
 
 if __name__ == "__main__":
-    model = Model("models/short_model.txt")
+    model = Model("models/glove_short.txt")

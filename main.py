@@ -5,6 +5,7 @@
 
 
 from wv import Model
+from scipy.stats import zscore
 
 def a_to_b_is_like_c_to(a: str, b: str, c: str)-> str:
     # Use a breakpoint in the code line below to debug your script.
@@ -26,6 +27,42 @@ def a_to_b_is_like_c_to(a: str, b: str, c: str)-> str:
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     model = Model("models/glove_short.txt")
-    #model = Model("models/wiki-news-300d-1M.vec")
+    #model = Model("models/outfileWiki.txt") 
     print(a_to_b_is_like_c_to("Berlin", "Germany", "Paris"))
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    while (1):
+        line=input('Enter at least 4 words: ')
+        words=line.split(' ')
+        if len(words) < 4:
+            print("Error: you did not enter 4 words with spaces in between.")
+        else:
+            scores=[]
+            for word in words:
+                W = model.find_word(word)
+                if W == None:
+                    print(f"Word not found in model: {word}")
+                    import sys
+                    sys.exit(1)
+                score=W.norm()
+                scores.append(score)
+                print(f"For word: {W.text} score is {score}")
+
+
+            z_scores =zscore(scores)
+            print("z_scores=", z_scores)
+
+            diff=[]
+            for s in scores:
+                for s2 in scores:
+                    d=abs(s-s2)
+                diff.append(d)
+            print(diff)
+            print('most different word has score:', max(scores))
+            index = 0
+            for s in scores:
+                if s == max(scores):
+                    print(f'Outlier is: {words[index]}')
+                    break
+                index = index + 1
+            #figure out position in array and print word in that position
+        

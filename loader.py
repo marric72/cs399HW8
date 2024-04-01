@@ -66,4 +66,5 @@ def pre_process_data(in_file: str, out_file: str,
 
             f2.close()
     f.close()
-pre_process_data("short.txt", "outfile.txt", 2, True, True)
+#pre_process_data("short.txt", "outfile.txt", 2, True, True)
+pre_process_data("models/wiki-news-300d-1M.vec","outfileWiki.txt", 50, True, True)
