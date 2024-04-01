@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
             z_scores =zscore(scores)
             print("z_scores=", z_scores)
-            threshold = 2
+            threshold = 1
 
             outliers_indices = np.where(np.abs(z_scores) > threshold)[0]
 
