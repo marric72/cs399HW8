@@ -18,27 +18,29 @@ st.markdown(title, unsafe_allow_html=True)
 # Create a text input widget
 user_input = st.text_input('Enter a comma seperated list of 4 or more words:')
 
-# Display the input value
-st.write('You entered:', user_input)
-
-model = Model("models/glove_short.txt")
 
 words=user_input.split(',')
+scores_set=0
 if len(words) < 4:
     st.write("Error: you did not enter 4 words with spaces in between.")
 else:
+    # Display the input value
+    st.write('You entered:', user_input)
+    model = Model("models/glove_short.txt")
     scores=[]
     for word in words:
+        #st.write(f"Word: {word}")
         W = model.find_word(word)
         if W == None:
+            st.write(f"Word not found in model: {word}")
             print(f"Word not found in model: {word}")
-            import sys
-            sys.exit(1)
-        score=W.norm()
-        scores.append(score)
-        print(f"For word: {W.text} score is {score}")
-
-
+        else:    
+            score=W.norm()
+            scores.append(score)
+            #st.write(f"Score: {score}")
+            print(f"For word: {W.text} score is {score}")
+    scores_set=1
+    if (scores_set == 1):
         z_scores =zscore(scores)
         print("z_scores=", z_scores)
         threshold = 1
@@ -47,13 +49,13 @@ else:
 
         # Print the indices of outliers
         print("Indices of outliers:", outliers_indices)
-            
+                
         # Print the values of outliers
         for o in outliers_indices:
             st.write("Values of outliers:", words[o])
 
             
 
-st.write("This can take awhile, so please enjoy the zen garden while you wait.")
+#st.write("This can take awhile, so please enjoy the zen garden while you wait.")
 st.image("redRose.png", caption='Breath') 
 # Display the filtered DataFrame
