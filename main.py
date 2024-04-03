@@ -1,15 +1,37 @@
 # Heather Marriott
 # HW9 - Find Outliers
+#
+# Why I selected the model:
+# I selected a model for it's small size because I wanted to publish on 
+# streamlit community.
+# Model started as Wikipedia model but I removed duplicates ex. Cat and cat appeared
+# so I removed Cat.  Removed non-word lines example: , and .
+# to get under the GitHub file limits so I did not need Large File Storage.
+#
+#to-do: smaller model file
+#docstrings and comments
+#stop at stop
+# less than 20 lines
+# update streamlit app
+#check pycharm for warnings
 from wv import Model
 from scipy.stats import zscore
-import numpy as np   #TODO: look for a way to remove this
+import numpy as np
 
-model = Model("models/glove_short.txt") #model selected because it is smallest file and worked
-while True: 
-    line=input('Enter at least 3 comma seperated words: ')
+model = Model("models/glove_shorter.txt") 
+#model = Model("models/outfileWiki.txt")
+line=input('Enter at least 3 comma seperated words: (STOP to exit)')
+while line != 'STOP': 
     line=line.replace(" ","")
     words=line.split(',')
-    print(f"words={words}")
+    found_words = [model.find_word(word) for word in words]
+    missing_indices = [i for i, word in enumerate(words) if found_words[i] is None]
+
+    if missing_indices:
+        missing_words = [words[i] for i in missing_indices]
+        print(f"Words not found in model: {missing_words}")
+        break
+    
     if len(words) < 3:
         print("Error: you did not enter 3 words with commas in between. Try again.g")
         continue
@@ -23,14 +45,7 @@ while True:
             #print(f"x={x} y={y}")
             word1 = model.find_word(words[x])
             word2 = model.find_word(words[y])
-            if word1 == None :
-                print(f"Word not found in model: ***{words[x]}***")
-                import sys
-                sys.exit(1) #exit program, a break would only exit for loop
-            if word2 == None:
-                print(f"Word not found in model: ***{words[y]}***")
-                import sys
-                sys.exit(1) #exit program, a break would only exit for loop
+            
             print(f"word1={word1} word2={word2}")
             if word1 != None and word2 != None:
                 #print(f"calling similarity for {words[x]} and {words[y]}")
@@ -50,4 +65,5 @@ while True:
     wordCopy=words.copy()
     for o in outliers_indices:
         words.remove(wordCopy[o])  #remove outliers
-    print('With outliers removed, your list looks like this:', ", ".join(words))    
+    print('With outliers removed, your list looks like this:', ", ".join(words))   
+    line=input('Enter at least 3 comma seperated words: (STOP to exit)') 
