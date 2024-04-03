@@ -7,8 +7,9 @@ import numpy as np   #TODO: look for a way to remove this
 model = Model("models/glove_short.txt") #model selected because it is smallest file and worked
 while True: 
     line=input('Enter at least 3 comma seperated words: ')
+    line=line.replace(" ","")
     words=line.split(',')
-    #print(f"words={words}")
+    print(f"words={words}")
     if len(words) < 3:
         print("Error: you did not enter 3 words with commas in between. Try again.g")
         continue
