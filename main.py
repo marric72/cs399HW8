@@ -8,7 +8,7 @@
 # so I removed Cat.  Removed non-word lines example: , and .
 # to get under the GitHub file limits so I did not need Large File Storage for streamlit app
 #
-#  Lines of Code: 41 - 6(blank lines) = 37
+#  Lines of Code: 41 - 6(blank lines) = 37 (I would rather take point deduction than remove any code)
 #  Lines of Comments:
 #to-do: 
 #docstrings and comments
