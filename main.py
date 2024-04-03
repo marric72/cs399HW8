@@ -16,6 +16,7 @@
 # update streamlit app
 #check pycharm for warnings
 #remove numpy include
+#to-do fix loader.py to add normalize function
 
 from wv import Model
 from scipy.stats import zscore
