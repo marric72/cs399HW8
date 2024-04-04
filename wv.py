@@ -27,7 +27,8 @@ class Word:
         self.vector = [x / length for x in self.vector]
 
     def similarity(self, w) -> float:
-        return self * w
+        sim=self*w #for debugging move to variable to examin/print
+        return sim
 
     def __add__(self, w):
         return Word("", [x + y for x, y in zip(self.vector, w.vector)])
