@@ -41,6 +41,7 @@ while line != 'STOP':
         continue
         
     scores=[]
+    
     #compare each word's similarity with the other words in the list to create a score
     for x in range(0, len(words)):
         scoreTotal=0
