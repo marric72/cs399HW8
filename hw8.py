@@ -22,7 +22,7 @@ user_input=user_input.replace(" ","")
 user_input=user_input.lower()
 words=user_input.split(',')
 if len(words) < 3:
-    st.write("Waiting 3 words with commas in between")
+    st.write("Waiting for 3 or more words with commas in between")
 else:
     scores_set = 0
     # Display the input value
@@ -41,8 +41,9 @@ else:
         print("Error: you did not enter 3 words with commas in between. Try again.")
         st.write(f"Error: you did not enter 3 words with commas in between. Try again.")
     else:    
-        st.write("This can take awhile, be patient.")
+        #st.write("This can take awhile, be patient.")
         scores=[]
+        
         #compare each word's similarity with the other words in the list to create a score
         for x in range(0, len(words)):
             scoreTotal=0
@@ -53,8 +54,10 @@ else:
                 word2 = model.find_word(words[y])
                     
                 scoreTotal += word1.similarity(word2)
+            
             scores.append(scoreTotal)
-            scores = zscore(scores) #zscore will compute relative Z-score for input
+        #st.write(f"type scores={type(scores)}")
+        scores = zscore(scores) #zscore will compute relative Z-score for input
             
         threshold = 1 #trial and error for find a value that worked
         outliers_indices = np.where(np.abs(scores) >threshold)[0]
