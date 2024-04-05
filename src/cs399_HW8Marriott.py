@@ -8,17 +8,21 @@
 # Model started as glove_short.txt file from Prof. but I removed duplicates
 # ex. Cat and cat appeared
 # so I removed Cat.  Removed non-word lines example: , and .
-# to get under the GitHub file limits.  Sadly streamlist community still does notlike
+# to get under the GitHub file limits.  Sadly streamlist community still does not like
 # the GUI application version of the homework (see hw8.py in repo)  
 #
 #  Lines of Code: more than 20 (I would rather take point deduction than
 #                               remove any code)
+#
+#  To use pytest I found I had to update PYTHONPATH: export PYTHONPATH=..../src
+#  then run tests as python3.12 -m pytest       (when I ran just pytest I got ModuleNotFoundError scipy)
 #
 #to-do: 
 #docstrings and comments
 # less than 20 lines
 # update streamlit app
 # check pycharm for warnings
+#comment out or remove extra print statement
 from wv import Model
 from scipy.stats import zscore
 #import numpy as np
@@ -57,8 +61,8 @@ def Sim_Check(model:Model, words : [str])->[str]:
     #max_score = max(scores)
     #if min_score == max_score:
     #    max_score,min_score=1,0 #prevent division by 0 in next line ex.cat,cat,cat
-    #normalized_scores = [(x - min_score) / (max_score - min_score) for x in scores]
-    #print(f"normalized_score= {normalized_scores}")
+    #scores = [(x - min_score) / (max_score - min_score) for x in scores]
+    #print(f"normalized_score= {scores}")
 
     #the assignment asked for zscore, and it works with the line below.
     #but I wanted to use the normalized_scores instead becasue they 
@@ -67,23 +71,29 @@ def Sim_Check(model:Model, words : [str])->[str]:
     #
     #zscore returned a wider range of numbers including negative numbers so
     #I decided not to use that. 
-    scores = zscore(scores) #zscore will compute relative Z-score for input
-    print(f"after zscore scores = {scores}")
+    import numpy as np
+    from numpy.linalg import norm
+    arr = np.array(scores)
+    normalized_arr = arr / norm(arr)
+    print(normalized_arr)
+    scores=normalized_arr
+    #scores = zscore(scores) #zscore will compute relative Z-score for input
+    #print(f"after zscore scores = {scores}")
     #if your list is all the same items, ex. apple, apple, apple then you
     #will get [nan nan nan] zscores and everything is removed from list
     if all(element == words[0] for element in words):
         print("all your words are the same.  No outliers")
+        return words
     else:
         #closer to 1 is more similar vectors, closer to 0 is less similar
-        threshold = .7 #trial and error for find a value that worked
+        threshold = .4 #trial and error for find a value that worked
         new_list = []
         for x in range(0, len(words)):
             if scores[x] > threshold:
                 new_list.append(words[x])
         print(f'With outliers removed, your list looks like this: {new_list}')
-        
-    line = input('Enter at least 3 comma seperated words: (STOP to exit)')
-
+        return new_list
+    
 def Load_Model()->Model:
     """Load the model data"""
     model = Model("models/glove_shorter.txt") 
@@ -106,9 +116,10 @@ def Get_User_Words(num  : int = 3) -> [str]:
 
 if __name__ == "__main__":
     words = Get_User_Words(3)
-    model = Load_Model()
-    print(f"model={model} and words={words}")
-    while model != None and words != None: 
-        new_list = Sim_Check(model, words)
-        words = Get_User_Words()
+    if words != None:
+        model = Load_Model()
+        print(f"model={model} and words={words}")
+        while model != None and words != None: 
+            new_list = Sim_Check(model, words)
+            words = Get_User_Words()
         
