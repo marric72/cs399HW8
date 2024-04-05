@@ -1,0 +1,21 @@
+/Users/heathermarriott/pythonVSC/hwAI/CS399_Module7_Homework3/cs399HW8/myenv/bin/python 
+/Users/heathermarriott/pythonVSC/hwAI/CS399_Module7_Homework3/cs399HW8/main.py
+/Users/heathermarriott/pythonVSC/hwAI/CS399_Module7_Homework3/cs399HW8/myenv/bin/python 
+/Users/heathermarriott/pythonVSC/hwAI/CS399_Module7_Homework3/cs399HW8/myenv/bin/python 
+/Users/heathermarriott/pythonVSC/hwAI/CS399_Module7_Homework3/cs399HW8/main.py
+/Users/heathermarriott/pythonVSC/hwAI/CS399_Module7_Homework3/cs399HW8/main.py
+/Users/heathermarriott/pythonVSC/hwAI/CS399_Module7_Homework3/cs399HW8/myenv/bin/python
+def Get_User_Words() -> [string]|None:
+    """Read in words from user.  If < 3, re-prompt"""
+    line=input('Enter at least 3 comma seperated words: (STOP to exit)')
+    if line != 'STOP': 
+        return None
+    return line
+
+/Users/heathermarriott/pythonVSC/hwAI/CS399_Module7_Homework3/cs399HW8/myenv/bin/python 
+/Users/heathermarriott/pythonVSC/hwAI/CS399_Module7_Homework3/cs399HW8/main.py
+from main import SimCheck
+import pytest
+
+def test_all_same():
+	assert 1=1
