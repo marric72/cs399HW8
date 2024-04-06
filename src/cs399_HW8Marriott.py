@@ -25,7 +25,7 @@
 #comment out or remove extra print statement
 from wv import Model
 from scipy.stats import zscore
-#import numpy as np
+import numpy as np
 
 def Sim_Check(model:Model, words : [str])->[str]:
     """ Given a list of words, remove outliers and return"""
@@ -48,37 +48,39 @@ def Sim_Check(model:Model, words : [str])->[str]:
                 continue # do not compare word with itself
             word1 = model.find_word(words[x])
             word2 = model.find_word(words[y])
-            print(f"word1={word1}")
-            print(f"word2={word2}")
+            #print(f"word1={word1}")
+            #print(f"word2={word2}")
             scoreTotal += word1.similarity(word2) 
-            print(f"scoreTotal={scoreTotal}")
+            #print(f"scoreTotal={scoreTotal}")
         scores.append(scoreTotal)
     
-    print(f"scores = {scores}")
+    #print(f"scores = {scores}")
 
     #normalize scores vector 
-    #min_score = min(scores)
-    #max_score = max(scores)
-    #if min_score == max_score:
-    #    max_score,min_score=1,0 #prevent division by 0 in next line ex.cat,cat,cat
-    #scores = [(x - min_score) / (max_score - min_score) for x in scores]
-    #print(f"normalized_score= {scores}")
+    data_array = np.array(scores)
 
-    #the assignment asked for zscore, and it works with the line below.
-    #but I wanted to use the normalized_scores instead becasue they 
-    #were in the range of 1-0 which matched what we learned in class
-    #where close to 1 means similar and close to 0 means different.
-    #
-    #zscore returned a wider range of numbers including negative numbers so
-    #I decided not to use that. 
-    import numpy as np
-    from numpy.linalg import norm
-    arr = np.array(scores)
-    normalized_arr = arr / norm(arr)
-    print(normalized_arr)
-    scores=normalized_arr
+    # Calculate the minimum and maximum values in the array
+    min_value = np.min(data_array)
+    max_value = np.max(data_array)
+
+    # Normalize the array between 0 and 1 using min-max scaling
+    print(min_value, max_value)
+    if (min_value != max_value): #no division by 0
+        normalized_data = (data_array - min_value) / (max_value - min_value)
+    else:
+        normalized_data = (data_array - min_value) 
+    print(normalized_data)
+    
+    #the assignment asked for zscore, I tried below line:
     #scores = zscore(scores) #zscore will compute relative Z-score for input
     #print(f"after zscore scores = {scores}")
+    #
+    #but the results were not between 0-1 like the lecture showed 
+    #zscore returned a wider range of numbers including negative numbers so
+    #I decided not to use that. 
+    
+    scores=normalized_data
+   
     #if your list is all the same items, ex. apple, apple, apple then you
     #will get [nan nan nan] zscores and everything is removed from list
     if all(element == words[0] for element in words):
@@ -86,7 +88,7 @@ def Sim_Check(model:Model, words : [str])->[str]:
         return words
     else:
         #closer to 1 is more similar vectors, closer to 0 is less similar
-        threshold = .4 #trial and error for find a value that worked
+        threshold = .3 #trial and error for find a value that worked
         new_list = []
         for x in range(0, len(words)):
             if scores[x] > threshold:
@@ -121,5 +123,7 @@ if __name__ == "__main__":
         print(f"model={model} and words={words}")
         while model != None and words != None: 
             new_list = Sim_Check(model, words)
+            if new_list == None: #word not found in model, exit
+                break
             words = Get_User_Words()
         
