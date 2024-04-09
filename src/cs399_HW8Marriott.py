@@ -8,8 +8,7 @@
 # Model started as glove_short.txt file from Prof. but I removed duplicates
 # ex. Cat and cat appeared
 # so I removed Cat.  Removed non-word lines example: , and .
-# to get under the GitHub file limits.  Sadly streamlist community still does not like
-# the GUI application version of the homework (see hw8.py in repo)  
+# to get under the GitHub file limits.  
 #
 #  Lines of Code: more than 20 (I would rather take point deduction than
 #                               remove any code)
@@ -69,7 +68,7 @@ def Sim_Check(model:Model, words : [str])->[str]:
         normalized_data = (data_array - min_value) / (max_value - min_value)
     else:
         normalized_data = (data_array - min_value) 
-    print(normalized_data)
+    #print(normalized_data)
     
     #the assignment asked for zscore, I tried below line:
     #scores = zscore(scores) #zscore will compute relative Z-score for input

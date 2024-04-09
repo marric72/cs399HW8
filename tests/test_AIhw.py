@@ -35,3 +35,10 @@ def test_word_not_found():
 	model = cs399_HW8Marriott.Load_Model()
 	new_list = cs399_HW8Marriott.Sim_Check(model, words)
 	assert new_list == None
+
+def test_computers():
+	"""another meaning of apple"""
+	words=['apple','ibm','car', 'dell']
+	model = cs399_HW8Marriott.Load_Model()
+	new_list = cs399_HW8Marriott.Sim_Check(model, words)
+	assert new_list == ['apple','ibm', 'dell']
