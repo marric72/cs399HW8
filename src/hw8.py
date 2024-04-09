@@ -27,7 +27,7 @@ else:
     scores_set = 0
     # Display the input value
     st.write('You entered:', user_input)
-    model = Model("models/glove_shorter.txt") 
+    model = Model("https://myerauedu-my.sharepoint.com/:t:/g/personal/marric72_erau_edu/EYQcygvFiYlAjKs9JzvrnsAB7BQ_5xg6Fch7gdYXmvuh3w?e=jd2q0G") 
     found_words = [model.find_word(word) for word in words]  #see if there are any words not in the model
     #get the index for any words that were not in the model so you can print a message 
     missing_indices = [i for i, word in enumerate(words) if found_words[i] is None] 
