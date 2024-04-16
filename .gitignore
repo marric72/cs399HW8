@@ -1,3 +1,6 @@
 models/*
 models/glove_short.txt
+.venv/*
+src/__pycache__
+tests/__pycache__
 
